@@ -5,7 +5,7 @@ eureka:
 
 spring:
   cloud:
-    # 配置读取信息
+    # 从eureka获取配置中心服务器，从服务器读取配置信息
     config:
       name: compute-server
       profile: dev
