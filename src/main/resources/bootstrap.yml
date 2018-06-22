@@ -13,5 +13,7 @@ spring:
       discovery:
         enabled: true
         service-id: compute-config-center
+      username: compute
+      password: password123
 
 
