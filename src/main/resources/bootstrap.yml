@@ -13,3 +13,5 @@ spring:
       discovery:
         enabled: true
         service-id: compute-config-center
+
+
