@@ -1,5 +1,6 @@
 package com.example.computeserver.controller;
 
+import com.example.computeserver.feignclient.HelloClient;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,6 +20,8 @@ public class ComputeController {
     private String profile;
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private HelloClient helloClient;
 
     /**
      * 获取一个随机整数
@@ -44,5 +47,11 @@ public class ComputeController {
     @ApiOperation(value = "问好", notes = "", produces = "application/json;charset=UTF-8")
     public String hello(){
         return restTemplate.getForEntity("http://compute-service/v1/hello", String.class).getBody();
+    }
+
+    @GetMapping("/v1/hello-feign")
+    @ApiOperation(value = "使用feign问好", notes = "", produces = "application/json;charset=UTF-8")
+    public String helloFeign(){
+        return helloClient.hello();
     }
 }
