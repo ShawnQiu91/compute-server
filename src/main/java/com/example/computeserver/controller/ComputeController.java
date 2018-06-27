@@ -1,6 +1,7 @@
 package com.example.computeserver.controller;
 
 import com.example.computeserver.feignclient.HelloClient;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,9 +50,19 @@ public class ComputeController {
         return restTemplate.getForEntity("http://compute-service/v1/hello", String.class).getBody();
     }
 
+    //@HystrixCommand(fallbackMethod = "failFast") 当使用feign时，不使用此注解
     @GetMapping("/v1/hello-feign")
     @ApiOperation(value = "使用feign问好", notes = "", produces = "application/json;charset=UTF-8")
     public String helloFeign(){
         return helloClient.hello();
+    }
+
+    /**
+     * 快速失败返回
+     * 使用hystrix容错时使用
+     * @return
+     */
+    public String failFast(){
+        return "Failfast : request server isn't working";
     }
 }
