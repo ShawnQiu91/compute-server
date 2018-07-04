@@ -13,6 +13,7 @@ import org.springframework.security.web.access.intercept.FilterSecurityIntercept
 /**
  * security 拦截配置,会根据配置对每个请求进行拦截
  * 默认情况下spring security的http配置
+ * 分布式环境下可将security配置在网关中（zuul）
  */
 @Configuration
 @EnableWebSecurity
