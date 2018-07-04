@@ -15,3 +15,11 @@ spring:
         service-id: compute-config-center
       username: compute
       password: password123
+
+# security 加密,用户认证
+security:
+  basic:
+    enabled: true
+  user:
+    name: compute
+    password: password123
