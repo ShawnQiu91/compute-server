@@ -1,6 +1,5 @@
 package com.example.computeserver.security.permission;
 
-import com.example.computeserver.service.CustomUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,18 +21,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private MyFilterSecurityInterceptor myFilterSecurityInterceptor;
 
     @Bean
-    UserDetailsService customUserService(){ //注册UserDetailsService 的bean
+    UserDetailsService customUserService() { //注册UserDetailsService 的bean
         return new CustomUserService();
     }
 
+    /**
+     * 用户登陆时调用一次，并将用户信息缓存
+     *
+     * @param auth
+     * @throws Exception
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserService()); //user Details Service验证
-
     }
 
     /**
-     * 用户
+     * 每个request会调用一次
+     *
      * @param http
      * @throws Exception
      */

@@ -1,4 +1,4 @@
-package com.example.computeserver.service;
+package com.example.computeserver.security.permission;
 
 import com.example.computeserver.dao.PermissionDAO;
 import com.example.computeserver.dao.UserDAO;
@@ -20,6 +20,7 @@ import java.util.List;
 
 /**
  * 获取用户信息service
+ * 将用户信息封装到security自己的实体中
  */
 @Service
 public class CustomUserService implements UserDetailsService {

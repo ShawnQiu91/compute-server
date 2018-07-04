@@ -14,6 +14,7 @@ import java.io.IOException;
 /**
  * security 核心抽象接口
  * security 拦截器
+ * 关联数据权限查询service和用户权限判断service
  */
 @Service
 public class MyFilterSecurityInterceptor extends AbstractSecurityInterceptor implements Filter {

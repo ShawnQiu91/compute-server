@@ -1,7 +1,6 @@
 package com.example.computeserver.security.permission;
 
 import com.example.computeserver.dao.PermissionDAO;
-import com.example.computeserver.dao.PermissionDAOImpl;
 import com.example.computeserver.entity.Permission;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,38 +24,39 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     @Autowired
     private PermissionDAO permissionDao;
 
-    private HashMap<String, Collection<ConfigAttribute>> map =null;
+    private HashMap<String, Collection<ConfigAttribute>> map = null;
 
     /**
      * 加载权限表中所有权限
      */
-    public void loadResourceDefine(){
+    public void loadResourceDefine() {
         map = new HashMap<>();
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg;
         List<Permission> permissions = permissionDao.findAll();
-        for(Permission permission : permissions) {
+        for (Permission permission : permissions) {
             array = new ArrayList<>();
             cfg = new SecurityConfig(permission.getName());
-            //此处只添加了用户的名字，其实还可以添加更多权限的信息，例如请求方法到ConfigAttribute的集合中去。此处添加的信息将会作为MyAccessDecisionManager类的decide的第三个参数。
+            //此处只添加了用户的名字，其实还可以添加更多权限的信息，例如请求方法到ConfigAttribute的集合中去。
+            //此处添加的信息将会作为MyAccessDecisionManager类的decide的第三个参数。
             array.add(cfg);
             //用权限的getUrl() 作为map的key，用ConfigAttribute的集合作为 value，
             map.put(permission.getUrl(), array);
         }
-
     }
 
     /**
      * 通过权限表查找url对应的permission-name
      * 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。
      * * 如果请求的URL未在权限表中定义，则放行，允许用户访问。
+     *
      * @param object
      * @return
      * @throws IllegalArgumentException
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        if(map ==null) loadResourceDefine();
+        if (map == null) loadResourceDefine();
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
 
@@ -64,14 +64,14 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
         if (request.getPathInfo() != null) {
             requestUrl = requestUrl + request.getPathInfo();
         }
-        LOGGER.info("***************** request url ："+ requestUrl +" ******************");
+        LOGGER.info("***************** request url ：" + requestUrl + " ******************");
 
         AntPathRequestMatcher matcher;
         String resUrl;
-        for(Iterator<String> iter = map.keySet().iterator(); iter.hasNext(); ) {
+        for (Iterator<String> iter = map.keySet().iterator(); iter.hasNext(); ) {
             resUrl = iter.next();
             matcher = new AntPathRequestMatcher(resUrl);
-            if(matcher.matches(request)) {
+            if (matcher.matches(request)) {
                 return map.get(resUrl);
             }
         }
