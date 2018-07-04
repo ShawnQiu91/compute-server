@@ -23,12 +23,13 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
     private static final Logger LOGGER = LoggerFactory.getLogger(MyInvocationSecurityMetadataSourceService.class);
     @Autowired
     private PermissionDAO permissionDao;
+    private HashMap<String, Collection<ConfigAttribute>> map;
 
     /**
-     * 加载权限表中所有权限
+     * 加载权限表中所有权限，在第一次请求时全部加载，以后不需要加载（缺点：新增权限时需要调用API刷新此权限集合）
      */
-    public HashMap<String, Collection<ConfigAttribute>> loadResourceDefine() {
-        HashMap<String, Collection<ConfigAttribute>> map = new HashMap<>();
+    public void loadResourceDefine() {
+        map = new HashMap<>();
         Collection<ConfigAttribute> array;
         ConfigAttribute cfg;
         List<Permission> permissions = permissionDao.findAll();
@@ -41,21 +42,21 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
             //用权限的getUrl() 作为map的key，用ConfigAttribute的集合作为 value，
             map.put(permission.getUrl(), array);
         }
-        return map;
     }
 
     /**
      * 通过权限表查找url对应的permission-name
      * 此方法是为了判定用户请求的url 是否在权限表中，如果在权限表中，则返回给 decide 方法，用来判定用户是否有此权限。
      * * 如果请求的URL未在权限表中定义，则放行，允许用户访问。
-     * * 此处可优化，直接查询数据库是否有此URL的权限，不需要全部查询出再过滤
+     * * 此处可优化，可直接查询数据库是否有此URL的权限，不需要全部查询出再过滤（更新权限时也不需要调用API刷新权限集合）
+     *
      * @param object
      * @return
      * @throws IllegalArgumentException
      */
     @Override
     public Collection<ConfigAttribute> getAttributes(Object object) throws IllegalArgumentException {
-        HashMap<String, Collection<ConfigAttribute>> map = loadResourceDefine();
+        if (map == null) loadResourceDefine();
         //object 中包含用户请求的request 信息
         HttpServletRequest request = ((FilterInvocation) object).getHttpRequest();
 
