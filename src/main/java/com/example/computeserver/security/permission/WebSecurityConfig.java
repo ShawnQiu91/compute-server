@@ -27,8 +27,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * 用户认证
      * 用户登陆时调用一次，并将用户信息缓存
-     *
      * @param auth
      * @throws Exception
      */
@@ -38,8 +38,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
+     * 请求拦截、过滤
      * 每个request会调用一次
-     *
      * @param http
      * @throws Exception
      */
