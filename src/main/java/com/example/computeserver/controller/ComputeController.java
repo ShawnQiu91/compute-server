@@ -65,11 +65,11 @@ public class ComputeController {
     }
 
     @GetMapping("/v1/hello-redis")
-    public String getUserInfo() {
-        String redisSet = "redis test : ";
-        redisTemplate.opsForValue().set("redisSet",redisSet);
+    public String helloRedis() {
+        String redisValue = "redis test : ";
+        redisTemplate.opsForValue().set("redisValue",redisValue);
         String remoteStr = restTemplate.getForEntity("http://compute-service/v1/hello", String.class).getBody();
-        Object obj = redisTemplate.opsForValue().get("redisSet");
+        Object obj = redisTemplate.opsForValue().get("redisValue");
         return obj.toString() + remoteStr;
     }
 
