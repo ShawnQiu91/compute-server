@@ -65,6 +65,9 @@ public class MyInvocationSecurityMetadataSourceService implements FilterInvocati
             requestUrl = requestUrl + request.getPathInfo();
         }
         LOGGER.info("***************** request url ：" + requestUrl + " ******************");
+        String meathod = request.getMethod();
+        String action = request.getParameter("action");
+        String url = request.getRequestURI();
 
         AntPathRequestMatcher matcher;
         String resUrl;

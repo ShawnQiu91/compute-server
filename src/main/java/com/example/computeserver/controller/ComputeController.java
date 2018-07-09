@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -33,9 +34,15 @@ public class ComputeController {
      * @return
      */
 
-    @GetMapping("/v1/number")
+    @GetMapping("/v1/number/{num}")
+    @ApiOperation(value = "获取输入的数", notes = "", produces = "application/json;charset=UTF-8")
+    public int geneNumber(@PathVariable(name = "num") int num) {
+        return num;
+    }
+
+    @GetMapping(value = "/v1/number", params = "action=random")
     @ApiOperation(value = "获取一个随机整数", notes = "", produces = "application/json;charset=UTF-8")
-    public int geneNumber() {
+    public int geneRandomNumber() {
         return new Random().nextInt();
     }
 

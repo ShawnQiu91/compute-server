@@ -61,7 +61,7 @@ public class PermissionDAOImpl implements PermissionDAO {
     public List<Permission> findByUserId(String userId) {
         List permissionList = new ArrayList<>();
 
-        permissionList.add(permission1);
+        //permissionList.add(permission1);
         permissionList.add(permission2);
         LOGGER.info("***************** find user permission by userId ******************");
         return permissionList;
