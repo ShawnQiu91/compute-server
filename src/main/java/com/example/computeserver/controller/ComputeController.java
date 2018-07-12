@@ -1,18 +1,19 @@
 
 package com.example.computeserver.controller;
 
+import com.example.computeserver.entity.SysUser;
 import com.example.computeserver.feignclient.HelloClient;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.Random;
 
 @RestController
@@ -80,6 +81,14 @@ public class ComputeController {
         return obj.toString() + remoteStr;
     }
 
+    @RequestMapping(value = "/login", params = "action=submit", method = RequestMethod.POST)
+    public String submit(HttpServletRequest request, @RequestParam("username") String username, @RequestParam("password") String password) throws IOException {
+        SysUser sysUser = new SysUser();
+        sysUser.setPassword(password);
+        sysUser.setName(username);
+        request.getSession(true).setAttribute("SESSION_NAME", sysUser);
+        return "login test : login success!";
+    }
 
     /**
      * 快速失败返回

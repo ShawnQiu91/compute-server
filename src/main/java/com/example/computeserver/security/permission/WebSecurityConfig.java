@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -57,4 +58,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
     }
 
+    /**
+     * 忽略部分资源的认证
+     *
+     * @param web
+     * @throws Exception
+     */
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring()
+                //.antMatchers("/login") //此配置可以请求到自定义的login-controller,但security的用户登陆拦截器失效
+                .antMatchers("/swagger-resources/**")
+                .antMatchers("/webjars/**")
+                .antMatchers("/swagger-ui.html")
+                .antMatchers("/favicon.ico");
+    }
 }
