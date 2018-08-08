@@ -1,8 +1,11 @@
-package com.example.computeserver;
+package com.example.computeserver.jvm;
 
-import org.junit.Test;
-
-public class JVMTest {
+/**
+ * 方法重写-jvm选择方法版本：
+ * 1、在编译期间根据静态类型选择一个方法版本
+ * 2、在运行期间根据实际类型和编译期间已选的版本选择最终版本
+ */
+public class JVMDemo {
 
     public static class O {
         public void m1(O o) {
@@ -10,7 +13,7 @@ public class JVMTest {
         }
     }
 
-    public static class A extends O{
+    public static class A extends O {
         public void m1(A a) {
             System.out.println("A-m1");
         }
@@ -32,8 +35,7 @@ public class JVMTest {
     }
 
 
-    @Test
-    public void name() throws Exception {
+    public static void main(String[] args) {
         A b = new B();
         b.m1(b);
 
