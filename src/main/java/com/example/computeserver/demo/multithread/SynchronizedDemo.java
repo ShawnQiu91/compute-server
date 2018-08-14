@@ -1,4 +1,4 @@
-package com.example.computeserver.multithread;
+package com.example.computeserver.demo.multithread;
 
 /**
  * synchronized 示例

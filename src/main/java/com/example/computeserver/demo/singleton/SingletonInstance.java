@@ -1,4 +1,4 @@
-package com.example.computeserver.singleton;
+package com.example.computeserver.demo.singleton;
 
 /**
  * 以枚举来实现单例模式

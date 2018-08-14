@@ -1,4 +1,4 @@
-package com.example.computeserver.multithread;
+package com.example.computeserver.demo.multithread;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;

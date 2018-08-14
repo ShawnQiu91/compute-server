@@ -1,5 +1,6 @@
 package com.example.computeserver;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -15,6 +16,7 @@ import org.springframework.web.client.RestTemplate;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableHystrix
+@MapperScan("com.example.computeserver.mapper")//将项目中对应的mapper类的路径加进来就可以了
 public class ComputeServerApplication {
 
 	@Bean
