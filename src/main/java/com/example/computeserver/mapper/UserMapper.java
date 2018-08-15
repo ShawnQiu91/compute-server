@@ -2,6 +2,8 @@ package com.example.computeserver.mapper;
 
 import com.example.computeserver.model.User;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer userId);
 
@@ -14,4 +16,7 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    //自定义方法
+    List<User> selectAllUser();
 }

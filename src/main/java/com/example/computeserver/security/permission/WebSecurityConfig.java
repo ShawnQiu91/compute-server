@@ -55,7 +55,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll() //登录页面用户任意访问
                 .and()
                 .logout().permitAll(); //注销行为任意访问
-        http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class);
+        http.addFilterBefore(myFilterSecurityInterceptor, FilterSecurityInterceptor.class).csrf().disable();
     }
 
     /**
@@ -71,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/swagger-resources/**")
                 .antMatchers("/webjars/**")
                 .antMatchers("/swagger-ui.html")
+                .antMatchers("/v2/api-docs/**")
                 .antMatchers("/favicon.ico");
     }
 }

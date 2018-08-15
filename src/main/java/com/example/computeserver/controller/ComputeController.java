@@ -34,7 +34,6 @@ public class ComputeController {
      *
      * @return
      */
-
     @GetMapping("/v1/number/{num}")
     @ApiOperation(value = "获取输入的数", notes = "", produces = "application/json;charset=UTF-8")
     public int geneNumber(@PathVariable(name = "num") int num) {
@@ -58,7 +57,6 @@ public class ComputeController {
      *
      * @return
      */
-
     @GetMapping("/v1/hello")
     @ApiOperation(value = "问好", notes = "", produces = "application/json;charset=UTF-8")
     public String hello() {
@@ -96,7 +94,6 @@ public class ComputeController {
      *
      * @return
      */
-
     public String failFast() {
         return "Failfast : request server isn't working";
     }
