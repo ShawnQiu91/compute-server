@@ -1,11 +1,12 @@
 package com.example.computeserver.demo.jvm;
 
 /**
+ * 动态分派示例
  * 方法重写-jvm选择方法版本：
  * 1、在编译期间根据静态类型选择一个方法版本
  * 2、在运行期间根据实际类型和编译期间已选的版本选择最终版本
  */
-public class JVMDemo {
+public class MethodOverrideDemo {
 
     public static class O {
         public void m1(O o) {
@@ -36,12 +37,12 @@ public class JVMDemo {
 
 
     public static void main(String[] args) {
-        A b = new B();
+        A a = new B();
+        a.m1(a);
+
+        B b = new B();
+        a.m1(b);
+
         b.m1(b);
-
-        B bb = new B();
-        b.m1(bb);
-
-        bb.m1(bb);
     }
 }
