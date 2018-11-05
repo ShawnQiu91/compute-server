@@ -50,4 +50,5 @@ public class SynchronizedDemo implements Runnable {
         }
         System.out.println("num : "+ n);
     }
+
 }
