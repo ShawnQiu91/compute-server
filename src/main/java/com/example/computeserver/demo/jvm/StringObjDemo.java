@@ -5,6 +5,7 @@ package com.example.computeserver.demo.jvm;
  * 字符串常量池（内容在编译期确定）、堆
  * 字面量在字符串常量池中建一个对象；new String（）会在堆、字符串常量池中各建一个对象
  * 编译期、运行期
+ * 使用intern可以释放队中字符串对象，节省内存空间
  */
 public class StringObjDemo {
     public static void main(String args[]) {
