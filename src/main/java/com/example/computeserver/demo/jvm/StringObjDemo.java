@@ -3,7 +3,7 @@ package com.example.computeserver.demo.jvm;
 /**
  * 字符串对象创建时内存分配
  * 字符串常量池（内容在编译期确定）、堆
- * 字面量、new String（）会在堆、字符串常量池中各建一个对象
+ * 字面量在字符串常量池中建一个对象；new String（）会在堆、字符串常量池中各建一个对象
  * 编译期、运行期
  */
 public class StringObjDemo {
